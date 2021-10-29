@@ -4,7 +4,8 @@ const Importer = require('mysql-import');
 
 describe('Queries de seleção', () => {
   let sequelize;
-
+  jest.setTimeout(30000);
+  
   beforeAll(async () => {
     const importer = new Importer(
       { user: process.env.MYSQL_USER, password: process.env.MYSQL_PASSWORD, host: process.env.HOSTNAME },
@@ -12,8 +13,8 @@ describe('Queries de seleção', () => {
 
     try {
       await importer.import('./desafio1.sql');
-    }
-    catch(error) {
+	    }
+	    catch(error) {
       console.log('Erro ao restaurar o dump!');
     }
 
