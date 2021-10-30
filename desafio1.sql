@@ -4,20 +4,20 @@ CREATE DATABASE SpotifyClone;
 
 USE SpotifyClone;
 
+CREATE TABLE SpotifyClone.planos(
+    plano_id INT auto_increment,
+    plano VARCHAR(30) NOT NULL,
+    valor_plano DECIMAL(4, 2) NOT NULL,
+    PRIMARY KEY (plano_id)
+);
+
 CREATE TABLE SpotifyClone.users(
     user_id INT auto_increment,
     nome VARCHAR(30) NOT NULL,
     idade INT,
     plano_id INT NOT NULL,
-    CONSTRAINT PRIMARY KEY(user_id),
+    PRIMARY KEY(user_id),
     FOREIGN KEY (plano_id) REFERENCES planos(plano_id)
-);
-
-CREATE TABLE SpotifyClone.planos(
-    plano_id INT auto_increment,
-    plano VARCHAR(30) NOT NULL,
-    valor_plano DECIMAL(4, 2) NOT NULL,
-    CONSTRAINT PRIMARY KEY (plano_id)
 );
 
 CREATE TABLE SpotifyClone.artistas(
@@ -26,7 +26,7 @@ CREATE TABLE SpotifyClone.artistas(
     CONSTRAINT PRIMARY KEY (artista_id)
 );
 
-CREATE TABLE albuns(
+CREATE TABLE SpotifyClone.albuns(
     album_id INT auto_increment,
     nome VARCHAR (30) NOT NULL,
     artista_id INT NOT NULL,
@@ -50,14 +50,19 @@ CREATE TABLE SpotifyClone.users_seguindo(
     FOREIGN KEY (artista_id) REFERENCES artistas(artista_id)
 );
 
-CREATE TABLE SpotifyClone.users_historico(
+CREATE TABLE users_historico(
     user_id INT NOT NULL,
     cancao_id INT NOT NULL, 
-    CONSTRAINT PRIMARY KEY (user_id, cancao_id),
+    PRIMARY KEY (user_id, cancao_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id),
     FOREIGN KEY (cancao_id) REFERENCES cancoes(cancao_id)
 );
 
+INSERT INTO SpotifyClone.planos(plano, valor_plano)
+VALUES 
+    ('gratuito', 0),
+    ('familiar', 7.99),
+    ('universitário', 5.99);
 
 INSERT INTO SpotifyClone.users(nome, idade, plano_id)
 VALUES 
@@ -65,12 +70,6 @@ VALUES
     ('Cintia', 35, 2),
     ('Bill', 20, 3),
     ('Roger', 45, 1);
-    
-INSERT INTO SpotifyClone.planos(plano, valor_plano)
-VALUES 
-    ('gratuito', 0),
-    ('familiar', 7.99),
-    ('universitário', 5.99);
     
 INSERT INTO SpotifyClone.artistas(nome)
 VALUES 
@@ -119,7 +118,7 @@ VALUES
     (3, 1),
     (4, 4);
     
-INSERT INTO SpotifyClone.users_historico (user_id, cancao_id)
+INSERT INTO SpotifyClone.users_historico(user_id, cancao_id)
 VALUES
     (1, 1),
     (1, 6),
